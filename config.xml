@@ -3,7 +3,7 @@
     <name>DGC Check</name>
     <description>Digital Green Certificate Check</description>
     <author email="tlallement@incert.lu" href="https://incert.lu">Incert Team</author>
-    <content original-src="index.html" src="http://localhost:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -279,6 +279,14 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <edit-config file="*-Info.plist" mode="merge" overwrite="true" target="NSCameraUsageDescription">
+            <string>We need access to the camera to scan QR codes</string>
+        </edit-config>
+        <preference name="WKWebViewOnly" value="true" />
+        <feature name="CDVWKWebViewEngine">`
+                                <param name="ios-package" value="CDVWKWebViewEngine" />
+</feature>
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />

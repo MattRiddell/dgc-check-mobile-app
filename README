@@ -13,15 +13,15 @@ The solution is developed by Incert Gie Luxembourgish Agency (https://incert.lu)
 ### Install
 
 ```bash
-$ sudo npm install -g ionic cordova
-$ npm install ( in app folder )
+$ sudo npm install -g ionic cordova native-run
+$ npm i ( in app folder )
 ```
 
 Then, to run it:
 
 ```bash
-$ ionic cordova platform add android
-$ ionic cordova run android
+$ ln -s /Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home/bin/javac /usr/local/bin/javac
+$ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home && ionic cordova run android
 ```
 
 Substitute android for ios if on a Mac.
@@ -53,10 +53,6 @@ $ Android/SDK/build-tools/29.0.2/zipalign.exe -v 4 platforms/android/app/build/o
 ### Build iOS APP (prod)
 
 On MAC using the command line:
-
-```bash
-$ ionic install
-```
 
 ```bash
 $ ionic cordova prepare ios
