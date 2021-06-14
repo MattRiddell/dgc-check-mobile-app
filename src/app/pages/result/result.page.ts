@@ -14,6 +14,7 @@ export class ResultPage implements OnInit {
   @Input() validSign: boolean;
 
   @Input() message: string;
+  @Input() status: string;
 
   constructor(public modalController: ModalController) {}
 
