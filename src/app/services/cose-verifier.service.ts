@@ -25,7 +25,7 @@ export class CoseVerifierService {
   constructor() {}
 
   verify(data) {
-    
+
     data = this.removePrefix(data);
     data = base45.decode(data);
 
@@ -38,20 +38,14 @@ export class CoseVerifierService {
     if (data[0] == 0x78) {
       data = zlib.inflate(new Uint8Array(data));
     }
-
+    console.log("------1");
     console.log(data);
+    console.log("------2");
 
     // Sample PEM
     const cert = Certificate.fromPEM(Buffer.from(
       '-----BEGIN CERTIFICATE-----\n' +
-      'MIIBTzCB9wICBAAwCgYIKoZIzj0EAwIwMjEjMCEGA1UEAwwaTmF0aW9uYWwgQ1ND' +
-      'QSBvZiBGcmllc2xhbmQxCzAJBgNVBAYTAkZSMB4XDTIxMDQwOTE0NDQwNloXDTI2' +
-      'MDIyMjE0NDQwNlowNjEnMCUGA1UEAwweRFNDIG51bWJlciB3b3JrZXIgb2YgRnJp' +
-      'ZXNsYW5kMQswCQYDVQQGEwJGUjBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABEqE' +
-      'TwFm0zBqGRsHa8HtaUGWWrWQLUtSMxM+JKA/B+tLJWd4HsnC3/TkthvoKB+/riwa' +
-      'ZhC1OM6EXNm7yiXOmZAwCgYIKoZIzj0EAwIDRwAwRAIgTojM9oJ3XYVK6pjOouiV' +
-      '1jLRa/Go6MH9DE3dRC05mSUCIFJkVcQ4d5/zbhlvX6lhGDpXTRBI+IMM0eBTjp8K' +
-      'RoSQ\n' +
+      'MIIEHjCCAgagAwIBAgIUM5lJeGCHoRF1raR6cbZqDV4vPA8wDQYJKoZIhvcNAQELBQAwTjELMAkGA1UEBhMCSVQxHzAdBgNVBAoMFk1pbmlzdGVybyBkZWxsYSBTYWx1dGUxHjAcBgNVBAMMFUl0YWx5IERHQyBDU0NBIFRFU1QgMTAeFw0yMTA1MDcxNzAyMTZaFw0yMzA1MDgxNzAyMTZaME0xCzAJBgNVBAYTAklUMR8wHQYDVQQKDBZNaW5pc3Rlcm8gZGVsbGEgU2FsdXRlMR0wGwYDVQQDDBRJdGFseSBER0MgRFNDIFRFU1QgMTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABDSp7t86JxAmjZFobmmu0wkii53snRuwqVWe3/g/wVz9i306XA5iXpHkRPZVUkSZmYhutMDrheg6sfwMRdql3aajgb8wgbwwHwYDVR0jBBgwFoAUS2iy4oMAoxUY87nZRidUqYg9yyMwagYDVR0fBGMwYTBfoF2gW4ZZbGRhcDovL2NhZHMuZGdjLmdvdi5pdC9DTj1JdGFseSUyMERHQyUyMENTQ0ElMjBURVNUJTIwMSxPPU1pbmlzdGVybyUyMGRlbGxhJTIwU2FsdXRlLEM9SVQwHQYDVR0OBBYEFNSEwjzu61pAMqliNhS9vzGJFqFFMA4GA1UdDwEB/wQEAwIHgDANBgkqhkiG9w0BAQsFAAOCAgEAIF74yHgzCGdor5MaqYSvkS5aog5+7u52TGggiPl78QAmIpjPO5qcYpJZVf6AoL4MpveEI/iuCUVQxBzYqlLACjSbZEbtTBPSzuhfvsf9T3MUq5cu10lkHKbFgApUDjrMUnG9SMqmQU2Cv5S4t94ec2iLmokXmhYP/JojRXt1ZMZlsw/8/lRJ8vqPUorJ/fMvOLWDE/fDxNhh3uK5UHBhRXCT8MBep4cgt9cuT9O4w1JcejSr5nsEfeo8u9Pb/h6MnmxpBSq3JbnjONVK5ak7iwCkLr5PMk09ncqG+/8Kq+qTjNC76IetS9ST6bWzTZILX4BD1BL8bHsFGgIeeCO0GqalFZAsbapnaB+36HVUZVDYOoA+VraIWECNxXViikZdjQONaeWDVhCxZ/vBl1/KLAdX3OPxRwl/jHLnaSXeqr/zYf9a8UqFrpadT0tQff/q3yH5hJRJM0P6Yp5CPIEArJRW6ovDBbp3DVF2GyAI1lFA2Trs798NN6qf7SkuySz5HSzm53g6JsLY/HLzdwJPYLObD7U+x37n+DDi4Wa6vM5xdC7FZ5IyWXuT1oAa9yM4h6nW3UvC+wNUusW6adqqtdd4F1gHPjCf5lpW5Ye1bdLUmO7TGlePmbOkzEB08Mlc6atl/vkx/crfl4dq1LZivLgPBwDzE8arIk0f2vCx1+4=\n' +
       '-----END CERTIFICATE-----\n'
     ));
 
@@ -68,12 +62,13 @@ export class CoseVerifierService {
     const keyY = Buffer.from(pk.slice(33,33+32))
 
     const verifier = { 'key': { 'x': keyX, 'y': keyY,  'kid': keyID } };
-
-    console.log(verifier);
-
+    console.log("------3");
+    console.log({verifier});
+    console.log("------4");
     return sign.verify(data, verifier)
     .then((buf) => {
       let decoded = cbor.decode(this.typedArrayToBuffer(buf));
+      console.log("------5");
       console.log(JSON.stringify(decoded, null, 5));
 
       return decoded;
