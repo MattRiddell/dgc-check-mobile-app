@@ -29,6 +29,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "assert": "^2.0.0",
+    "axios": "^0.21.1",
     "base45-js": "git+https://github.com/ehn-digital-green-development/base45-js.git",
     "buffer": "^5.7.1",
     "cbor": "^7.0.4",
