@@ -64,24 +64,27 @@ export class HomePage {
 
       try {
         let cwtHeader = this.verifier.getCwtHeaderData(barcodeData.text);
-
+        console.log(cwtHeader);
         console.log('Issuer: ' + cwtHeader[this.ISSUER]);
         console.log('Subject: ' + cwtHeader[this.SUBJECT]);
         console.log('Audience: ' + cwtHeader[this.AUDIENCE]);
         console.log('Expiration: ' + cwtHeader[this.EXPIRATION]);
 
         console.log('Hcert: ');
-        console.log(cwtHeader[this.HCERT][1]);
+        console.log(cwtHeader[this.HCERT]);
+        // console.log(cwtHeader[this.HCERT][1]);
         console.log("=======")
-        console.log(cwtHeader[this.HCERT][0]);
+        // console.log(cwtHeader[this.HCERT][0]);
         console.log("=======0")
         this.verifier.verify(barcodeData.text).then(function (json) {
           console.log("=======1")
           console.log({json});
           console.log("=======2")
           let hcert = json[self.HCERT][1];
+          console.log("=======3")
           let status = 'success';
           let result = self.verifier.validateSchema(hcert);
+          console.log("=======4", result)
           let messages = [];
           if (result.errors.length > 0) {
             for (let error of result.errors) {
